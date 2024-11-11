@@ -38,8 +38,8 @@ jobs:
       - name: Set up SSH Key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_new1
+          chmod 600 ~/.ssh/id_rsa_new1
 
       - name: Add server to known hosts
         run: |
@@ -50,7 +50,7 @@ jobs:
         if: ${{ success() }}
         run: |
           echo "Attempting to pull and run Docker container..."
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@20.109.24.192 "
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_new1 ubuntu@20.109.24.192 "
             docker pull ${{ secrets.DOCKER_USERNAME }}/streamlit-app:latest &&
             docker stop streamlit-app || true &&
             docker rm streamlit-app || true &&
