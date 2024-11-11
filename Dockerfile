@@ -10,6 +10,9 @@ COPY requirements.txt .
 # Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the BERT model file into the container (make sure bert_model_10epochs.pth is in the same folder as Dockerfile)
+COPY bert_model_10epochs.pth /app/
+
 # Copy the rest of the application into the container
 COPY . .
 
