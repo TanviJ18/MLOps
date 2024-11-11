@@ -18,6 +18,13 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name: Set up SSH Key
+        run: |
+          mkdir -p ~/.ssh   # Ensure .ssh directory exists
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
@@ -40,11 +47,6 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-
-      - name: Add server to known hosts
-        run: |
-          ssh-keyscan -H 20.244.44.252 >> ~/.ssh/known_hosts
-          echo "Host added to known_hosts"
 
       - name: Pull and run Docker container on server
         if: ${{ success() }}
