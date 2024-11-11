@@ -22,6 +22,14 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Install DVC
+        run: |
+          pip install dvc  # Install DVC
+
+      - name: Pull DVC files
+        run: |
+          dvc pull  # Pull data and model files from DVC remote storage
+
       - name: Build Docker image
         run: |
           docker build -t streamlit-app .
