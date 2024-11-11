@@ -48,8 +48,17 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
+      # - name: Pull and run Docker container on server
+      #   if: ${{ success() }}
+      #   run: |
+      #     echo "Attempting to pull and run Docker container..."
+      #     ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@20.244.44.252 "
+      #       docker pull tanvij18/streamlit-app:latest &&
+      #       docker stop streamlit-app || true &&
+      #       docker rm streamlit-app || true &&
+      #       docker run -d --name streamlit-app -p 8501:8501 tanvij18/streamlit-app:latest"
+
       - name: Pull and run Docker container on server
-        if: ${{ success() }}
         run: |
           echo "Attempting to pull and run Docker container..."
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@20.244.44.252 "
@@ -57,4 +66,5 @@ jobs:
             docker stop streamlit-app || true &&
             docker rm streamlit-app || true &&
             docker run -d --name streamlit-app -p 8501:8501 tanvij18/streamlit-app:latest"
+
 
