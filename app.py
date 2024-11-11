@@ -24,7 +24,7 @@ class BertMultiLabelClassifier(nn.Module):
 # Initialize model and load trained weights
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = BertMultiLabelClassifier(num_labels=len(categories))
-model.load_state_dict(torch.load('C:\\Users\\nayye\\Desktop\\MLOps deployment\\bert_model_10epochs.pth', map_location=device))
+model.load_state_dict(torch.load('bert_model_10epochs.pth', map_location=device))
 model.eval().to(device)
 
 # Load tokenizer
